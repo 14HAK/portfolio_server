@@ -5,7 +5,7 @@ const connectionString = process.env.CONNECTION_STRING;
 
 const client = new MongoClient(connectionString);
 
-client.connect()
+
 
 const db = client.db('portfolio');
 
@@ -14,4 +14,4 @@ const repoCollections = db.collection('repositories')
 
 client.close()
 
-module.exports = { skillCollections, repoCollections };
+module.exports = { client, skillCollections, repoCollections };
