@@ -1,35 +1,47 @@
-require("dotenv").config();
-const { client } = require('./model/skills');
 const express = require('express');
-const cors = require("cors");
-const skillsRouter = require('./routes/skillsRoute');
+require('dotenv').config();
+const router = require('./router/router');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const cors = require('cors');
 
 
 const port = process.env.PORT || 5000;
 
 const app = express();
 
-app.use(express.json())
+const uri = process.env.CONNECTION_STRING;
+// 
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
 app.use(cors());
-
-client.connect()
-
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next()
-})
+app.use(express.json());
 
 
 app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
-
-app.use('/api', skillsRouter)
-
-
-app.listen(port, () => {
-  console.log(`Server running on port: http://localhost:${port}`);
+  res.send(`<h1>Welcome!</h1>`);
 });
 
 
+//mongo db operation:
+async function run() {
+  try {
+    await client.db('admin').command({ ping: 1 });
+    console.log('MongoDB connection successful!');
 
+    app.use('/api', router)
+
+  } finally {
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
+app.listen(port, () => {
+  console.log(`Server running at port: http://localhost:${port}`);
+});
