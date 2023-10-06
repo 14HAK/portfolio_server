@@ -31,6 +31,8 @@ app.get('/', (req, res) => {
 //mongo db operation:
 async function run() {
   try {
+    await client.connect();
+
     await client.db('admin').command({ ping: 1 });
     console.log('MongoDB connection successful!');
 
