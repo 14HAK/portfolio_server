@@ -11,6 +11,23 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ],
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  ]
 }
+
+// // vercel.json
+// {
+//   "version": 2,
+//   "builds": [
+//     {
+//       "src": "./index.js",
+//       "use": "@vercel/node"
+//     }
+//   ],
+//   "routes": [
+//     {
+//       "src": "/(.*)",
+//       "dest": "/"
+//     }
+//   ],
+//   "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+// }
