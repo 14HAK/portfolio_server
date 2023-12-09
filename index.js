@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 const uri = process.env.CONNECTION_STRING;
-// 
+// ......
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -18,7 +18,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
+//
 app.use(cors());
 app.use(express.json());
 
